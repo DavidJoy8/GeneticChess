@@ -9,8 +9,29 @@ class Game:
 		self.whiteTurn = whiteTurn
 	
 	def run(self):
-		pass
-	
+	    # game loop
+	    # try assuming both sockets are connected
+            try:
+                while True:
+                    # current player send a move
+                    if self.whiteTurn:
+                        curr_start, curr_end, curr_promo = self.white.recv().split()
+                    else:
+                        curr_start, curr_end, curr_promo = self.black.recv().split() 
+                    # check if is_legal_move()
+                    if self.is_legal_move(curr_start, curr_end):
+                        # make the move make_move()
+                        is_game_done = self.make_move(curr_start, curr_end, curr_promo)
+                        if is_game_done:
+                            # ending the game stuff here
+                            break
+		    # transfer control to the other player
+		    self.whiteTurn = not self.whiteTurn
+		return
+	    except:
+	        # one or both socket end their connection
+	        # do stuff
+	        return
 	def is_legal_move(self, start, end):
 		if self.board[start] == "-":
 			return False
