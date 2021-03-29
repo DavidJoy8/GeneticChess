@@ -12,9 +12,13 @@ class Game:
 		pass
 	
 	def is_legal_move(self, start, end):
+		if start == end:
+			return False
 		if self.board[start] == "-":
 			return False
 		if self.board[start] < 91 ^ self.whiteTurn:		#trying to move opponent's piece
+			return False
+		if self.board[end] > 91 ^ self.whiteTurn:		#trying to take own piece
 			return False
 		
 		#Piece-specific code:
