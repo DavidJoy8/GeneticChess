@@ -35,4 +35,4 @@ class Game:
 
 	def make_move(self, start, end, promotion_choice):	#actually perform the move.  Assume it is legal.  Promotion choice will be a legal piece and the right color
 		#code here
-		whiteTurn = !whiteTurn
+		whiteTurn = not whiteTurn
