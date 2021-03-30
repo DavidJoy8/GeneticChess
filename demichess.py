@@ -23,9 +23,51 @@ class Game:
 		
 		#Piece-specific code:
 		if self.board[start] == 'p':
+			sx = start % 4
+			sy = start // 4
+			ex = end % 4
+			ey = end // 4
+			if (ey - sy) < 1: #trying to move up 
+				return False
+			if sy == 1: #Pawn in original position
+				if ey - sy > 2: #moving more than two lines down
+					return False
+			else:
+				if (ey - sy) != 1: #trying to move more than one down from non-starting position
+					return False
+			if (ex-sx) == 0: #move striaght down
+				if self.board[end] != '-':
+					return False
+			elif (ex-sx) == 1 or (ex-sx) == -1: #taking diagonally
+			    if self.board[end] == '-':
+			        return False
+			else: #moving too far to a side (not just one diagonal)
+			    return False
+			return True 
+                
 			return True
 		elif self.board[start] == 'P':
-			return True
+			sx = start % 4
+			sy = start // 4
+			ex = end % 4
+			ey = end // 4
+			if (ey - sy) > -1: #trying to move down  
+			    return False
+			if sy == 6: #Pawn in original position
+			    if ey - sy < -2: #moving more than two lines up
+			        return False
+			else:
+			    if (ey - sy) != 1: #trying to move more than one up from non-starting position
+			        return False
+			if (ex-sx) == 0: #move striaght up
+			    if self.board[end] != '-':
+			        return False
+			elif (ex-sx) == 1 or (ex-sx) == -1: #taking diagonally
+			    if self.board[end] == '-':
+			        return False
+			else: #moving too far to a side (not just one diagonal)
+			    return False
+			return True 
 		elif self.board[start] == 'B' or self.board[start] == 'b':
 			return True
 		elif self.board[start] == 'N' or self.board[start] == 'n':
